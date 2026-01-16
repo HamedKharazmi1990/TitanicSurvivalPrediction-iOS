@@ -16,6 +16,11 @@
 			path = Titanic;
 			sourceTree = "<group>";
 		};
+		23A54F472F1AB9CD0017D9E1 /* assets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = assets;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +37,7 @@
 		23A54F262F1A67B00017D9E1 = {
 			isa = PBXGroup;
 			children = (
+				23A54F472F1AB9CD0017D9E1 /* assets */,
 				23A54F312F1A67B10017D9E1 /* Titanic */,
 				23A54F302F1A67B10017D9E1 /* Products */,
 			);
@@ -62,6 +68,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				23A54F312F1A67B10017D9E1 /* Titanic */,
+				23A54F472F1AB9CD0017D9E1 /* assets */,
 			);
 			name = Titanic;
 			packageProductDependencies = (

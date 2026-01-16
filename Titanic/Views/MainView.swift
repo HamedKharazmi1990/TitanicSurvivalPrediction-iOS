@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreML
 
 struct MainView: View {
     @State private var tm: TitanicModel = .init(
@@ -90,16 +91,34 @@ struct MainView: View {
                         prompt: "What port did you embark from?"
                     )
                 }
+                .scrollIndicators(.hidden)
+                .blur(radius: showAlert ? 5 : 0)
+                .disabled(showAlert)
                 
                 if showAlert {
-                    Text("TODO: SHOW RESULT ABOUT SURVIVAL")
+                    Button {
+                        withAnimation {
+                            showAlert.toggle()
+                        }
+                    } label: {
+                        if let survival {
+                            VStack {
+                                Text(survival ? "SURVIVED!" : "DID NOT SURVIVE")
+                                    
+                                Text("Probability of Survival: \(survivalRate)")
+                            }
+                            .padding()
+                            .background(Color.black)
+                            .foregroundStyle(.white)
+                        }
+                    }
                 }
             }
             .navigationTitle("Surviving the Titanic")
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     Button {
-                        // TODO: Implement - Determine Survival using Model
+                        compute()
                     } label: {
                         Text("Compute")
                             .bold()
@@ -109,6 +128,31 @@ struct MainView: View {
                 }
             }
         }
+    }
+    
+    func compute() {
+        do {
+            let config = MLModelConfiguration()
+            let model = try TitanicRegressionModel_1(configuration: config)
+            let prediction = try model.prediction(
+                Pclass: tm.Pclass,
+                Sex: tm.sex.lowercased(),
+                Age: tm.age,
+                SibSp: Int64(tm.siblingsSpouses),
+                Parch: Int64(tm.parentsChildren),
+                Fare: tm.fare,
+                Embarked: String(tm.port.first ?? "C")
+            )
+            
+            // Result between 0 and 1 = Probability of survival
+            survivalRate = prediction.Survived
+            
+            survival = prediction.Survived > 0.5
+            
+        } catch {
+            survival = nil
+        }
+        showAlert = true
     }
 }
 

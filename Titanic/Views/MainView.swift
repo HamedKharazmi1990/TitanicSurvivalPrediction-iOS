@@ -43,16 +43,44 @@ struct MainView: View {
                     )
                     
                     // Age
-                    Section("Age") { Text("TODO: Age") }
+                    SliderSectionView(
+                        value: $tm.age,
+                        sectionTitle: "Age",
+                        prompt: "Age: \(tm.age.formatted())",
+                        min: 0,
+                        max: 120,
+                        step: 0.5
+                    )
                     
                     // Siblings and spouses
-                    Section("Siblings and spouses") { Text("TODO: Siblings and spouses") }
+                    SliderSectionView(
+                        value: $tm.siblingsSpouses,
+                        sectionTitle: "Siblings and Spouses",
+                        prompt: "Number of siblings/spouses: \(tm.siblingsSpouses.formatted())",
+                        min: 0,
+                        max: 10,
+                        step: 1
+                    )
                     
                     // Parents and children
-                    Section("Parents and children") { Text("TODO: Parents and children") }
+                    SliderSectionView(
+                        value: $tm.parentsChildren,
+                        sectionTitle: "Parents and Children",
+                        prompt: "Number of parents and children: \(tm.parentsChildren.formatted())",
+                        min: 0,
+                        max: 20,
+                        step: 1
+                    )
                     
                     // Ticket price? (in 1910 pounts)
-                    Section("Ticket price?") { Text("TODO: Ticket price?") }
+                    SliderSectionView(
+                        value: $tm.fare,
+                        sectionTitle: "Ticket price? (in 1910 pounts)",
+                        prompt: "Ticket price £\(tm.fare.formatted())",
+                        min: 0,
+                        max: 600,
+                        step: 0.1
+                    )
                     
                     // Port
                     SegmentSectionView(
